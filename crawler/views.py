@@ -11,8 +11,8 @@ def home(request):
         # get the number of articles available for the searched tag
         fetched_data, number_of_articles = get_articles(tag)
 
-        if tag not in frequent_searches:
-            frequent_searches.append(tag)
+        # if tag not in frequent_searches:
+        frequent_searches.append(tag)
 
         if number_of_articles == 0:
 
