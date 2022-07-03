@@ -10,36 +10,96 @@
         .upper_gap{
             margin-top: 6%;
             text-align: center;
-            margin-left: 23%;
+            margin-left: 15%;
         }
         .upper_gap-1{
             margin-top: 10%;
             text-align: center;
-            margin-left: 23%;
+            margin-left: 25%;
             
         }
+        .history_gap{
+            border:1px solid rgb(181, 175, 175);
+            border-radius: 5px;
+            box-shadow: 1px 1px grey;
+            margin-top: 6%;
+            margin-left: 12%;
+        }
+        .length_word{
+            font-size: 150%;
+        }
+        .length_word-1{
+            font-size: 100px;
+        }
+        .alerts{
+            border:1px solid red;
+            box-shadow: 1px 1px rgb(233, 23, 23);
+            margin-left:17%;
+
+        }
+
+    @media (max-width: 900px) and (min-width:600px) {
+        .length_word{
+            font-size: 100%;
+        }
+        .length_word-1{
+            font-size: 140%;
+        }
+    }
+    @media (max-width: 600px) and (min-width:400px) {
+        .length_word{
+            font-size: 68%;
+        }
+        .length_word-1{
+            font-size: 120%;
+        }
+    }
+    @media (max-width: 400px){
+        .length_word{
+            font-size: 48%;
+        }
+        .length_word-1{
+            font-size: 80%;
+        }
+    }
     </style>
 </head>
 <body>
+    {% if no_response %}
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8col-8 alerts">
+                <h6 style="text-align:center;color:red">{{ no_response.message }}</h6>
+                
+                    <p style="text-align:center;font-weight: 800; color:red">{{ no_response.similar_tags }}</p>
+                
+            </div>
+        </div>
+    {% endif %}
     <form method="post">
         {% csrf_token %}
         
         <div class="row">
-            <div class="col-lg-6 upper_gap-1">
-                <h1>Find</h1>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 upper_gap-1">
+                <h1 class="length_word-1">Find</h1>
             </div>
-            <div class="col-lg-6 upper_gap">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4 upper_gap">
                 <div class="input-group flex-nowrap">
                     <input type="text" class="form-control" placeholder="ENTER TAG" name="tag" aria-label="Username" aria-describedby="addon-wrapping">
                 </div>
                 <br>
                 <input type="submit">
-                <h1></h1><h1></h1>
-                {% if no_response %}
-                    <h6>{{ no_response.message }}</h6>
-                    {% for word in no_response.similar_tags %}
-                        <h6>{{ word }}</h6>
-                    {% endfor %}
+        
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-3 history_gap">
+                <h5 style="text-align: center;" class="length_word">Recent  Searches</h5>
+                {% if search %}
+                    <ul>
+                        {% for word in search %}
+                            <li>{{ word}}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+	                <h4 style="color:red; text-align:center">NO RECENT SEARCHES</h4>
                 {% endif %}
             </div>
         </div>

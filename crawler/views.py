@@ -1,3 +1,4 @@
+from operator import le
 from django.shortcuts import render
 from django.http import HttpResponse
 from crawler.functions import *
@@ -10,6 +11,9 @@ def home(request):
         # get the number of articles available for the searched tag
         fetched_data, number_of_articles = get_articles(tag)
 
+        if tag not in frequent_searches:
+            frequent_searches.append(tag)
+
         if number_of_articles == 0:
 
             # if not found any relevant article for the given tag then show similar tags
@@ -19,11 +23,16 @@ def home(request):
                 "message": "No article found for this tag, you can try with similar tags"
             }
             print(no_response.get('similar_tags'))
-            return render(request, "crawler/home.html", context={"no_response":no_response})
+            print(frequent_searches)
+            return render(request, "crawler/home.html", context={"no_response":no_response, "search":frequent_searches})
 
         return render(request,"crawler/articles.html",context={"fetched_data":fetched_data})
+    
+    # if len(frequent_searches)>10:
+    #     frequent_searches = frequent_searches[1:]
 
-    return render(request, "crawler/home.html")
+    print(frequent_searches)
+    return render(request, "crawler/home.html", context={"search":frequent_searches})
 
 def find_blog(request,number):
 
