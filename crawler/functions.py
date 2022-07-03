@@ -6,7 +6,9 @@ from bs4 import BeautifulSoup
 base_url = "https://medium.com"
 
 def get_articles(tag):
-    url = "https://medium.com/tag/"+tag + "/latest"
+    
+    # get the inforamtion of avialable articles for the given tag
+    url = "https://medium.com/tag/"+tag.lower() + "/latest"
     medium_data = requests.get(url)
 
     soup = BeautifulSoup(medium_data.text, 'html.parser')
@@ -18,6 +20,7 @@ def get_articles(tag):
     number=0
     for article in articles:
 
+        # iterate on all the articles to fetch information
         creater_name = article.find('div',{'class':'o ao ji'}).find('p').text
         created_at = article.find('div',{'class':'o ao'}).find('p').text
         title = article.find('div',{'class':'l'}).find('h2').text
@@ -35,8 +38,10 @@ def get_articles(tag):
     return fetched_data, number_of_article
 
 def find_url(tag,n):
+    
+    # find url of an article
     urls = []
-    url = "https://medium.com/tag/"+tag + "/latest"
+    url = "https://medium.com/tag/"+ tag.lower() + "/latest"
     medium_data = requests.get(url)
 
     soup = BeautifulSoup(medium_data.text, 'html.parser')
@@ -50,6 +55,7 @@ def find_url(tag,n):
 
 def find_article_content(url):
 
+    #find all the availabel content of an article
     information  = requests.get(url)
     soup = BeautifulSoup(information.text, 'html.parser')
 
@@ -76,6 +82,7 @@ def find_article_content(url):
 
 def find_similar_tags(tag):
 
+    # find the similar tags if requested not found
     similar_words = []
     url = "https://api.datamuse.com/words?ml=" + tag
     response = requests.get(url=url)
@@ -83,7 +90,7 @@ def find_similar_tags(tag):
     for word in response_data:
         similar_words.append(word.get("word"))
 
-    if len(similar_words) < 10:
+    if len(similar_words) < 5:
         url = "https://api.datamuse.com/sug?s=" +tag
         response = requests.get(url=url)
         response_data = response.json()

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Find</title>
     <style>
         .main{
             border: 1px solid rgb(179, 166, 166);
@@ -30,8 +30,8 @@
     <div class="main" >
         <div class="sub-main">
             <h1>{{ article_content.title }}</h1>
-            <h3>by {{ article_content.created_by }} </h3>
-            <h3>on {{ article_content.created_at}}  &emsp;&emsp; {{article_content.time}}</h3>
+            <h3>by {{ article_content.created_by }}</h3>
+            <h3>{{ article_content.created_at}}, {{article_content.time}}</h3>
         </div>
         <div class="para_main">
             <p>{{ article_content.content }}</p>

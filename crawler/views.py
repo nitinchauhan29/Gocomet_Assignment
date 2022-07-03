@@ -2,12 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from crawler.functions import *
 
-
+frequent_searches = []
 def home(request):
     if request.method == "POST":
         tag = request.POST["tag"]
+
+        # get the number of articles available for the searched tag
         fetched_data, number_of_articles = get_articles(tag)
+
         if number_of_articles == 0:
+
+            # if not found any relevant article for the given tag then show similar tags
             similar_tags = find_similar_tags(tag)
             no_response = {
                 "similar_tags":similar_tags,
@@ -21,18 +26,14 @@ def home(request):
     return render(request, "crawler/home.html")
 
 def find_blog(request,number):
-    print(number)
 
+    # find content of blog 
     n = number.split('_')[0]
     tag = number.split('_')[1]
     print(n, tag)
     url = find_url(tag ,n)
     print(url)
     article_content = find_article_content(url)
-    print(article_content)
     return render(request,"crawler/article_information.html", context={"article_content": article_content})
-
-
-
 
 # Create your views here.
