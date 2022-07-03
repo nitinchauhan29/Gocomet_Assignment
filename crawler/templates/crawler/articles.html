@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(even) {
+      background-color:grey;
+    }
+    </style>
+<body>
+    <h1>BLOG INFORMATION</h1>
+
+    <div class="">
+        <div class="">
+            <h1>{{ fetched_data.count }}</h1>
+            <table>
+                <tr>
+                  <th>Title</th>
+                  <th>Creator</th>
+                  <th>Details</th>
+                  <th>Action</th>
+                </tr>
+                {% for blog in fetched_data %}
+                    <tr>
+                    <td>{{ blog.title }} </td>
+                    <td>{{ blog.creater_name }}</td>
+                    <td>{{ blog.created_at }}</td>  
+                    <td><a href="{% url 'find_blog' blog.number %}">Action</a></td>
+                    </tr>
+                {% endfor %}
+              </table>
+        </div>
+    </div>
+</body>
+</html>

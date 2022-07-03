@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crawler</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+        .upper_gap{
+            margin-top: 6%;
+            text-align: center;
+            margin-left: 23%;
+        }
+        .upper_gap-1{
+            margin-top: 10%;
+            text-align: center;
+            margin-left: 23%;
+            
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="row">
+            <div class="col-lg-6 upper_gap-1">
+                <h1>LET's FIND BLOG</h1>
+            </div>
+            <div class="col-lg-6 upper_gap">
+                <div class="input-group flex-nowrap">
+                    <input type="text" class="form-control" placeholder="ENTER TAG" name="tag" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
+                <br>
+                <input type="submit">
+                <h1></h1><h1></h1>
+                {% if no_response %}
+                    <h6>{{ no_response.message }}</h6>
+                    {% for word in no_response.similar_tags %}
+                        <h6>{{ word }}</h6>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>
